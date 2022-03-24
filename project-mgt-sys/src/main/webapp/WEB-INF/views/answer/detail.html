@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="common/template">
+<head>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css"
+	rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="row justify-content-center">
+			<div class="col-md-6 ">
+				<form class="p-4" th:method="post" th:object="${answer}">
+					<h5 class="pb-2">DETAIL</h5>
+
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<i class="fas fa-newspaper"></i> <label class="mb-0"
+									for="txtTitle" th:text="#{title}"> </label><input type="text"
+									id="txtTitle" th:field="*{question.title}"
+									class="form-control form-control-sm" disabled="disabled"
+									autocomplete="off">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<i class="far fa-list-alt mr-1"></i><label class="mb-0"
+									for="txtDescription" th:text="#{description}"></label>
+								<textarea th:field="*{question.description}" id="txtDescription"
+									class="form-control form-control-sm" rows="15"
+									disabled="disabled" autocomplete="off"></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<i class="fas fa-tasks"></i> <label class="mb-0" for="txtAnswer"
+									th:text="#{answer}"> </label>
+								<textarea th:field="*{answer}" id="txtAnswer"
+									class="form-control form-control-sm" rows="15"
+									autofocus="autofocus" disabled="disabled" autocomplete="off"></textarea>
+								<small class="text-danger mt-0 float-right"
+									th:if="${#fields.hasErrors('answer')}" th:errors="*{answer}"></small>
+							</div>
+						</div>
+					</div>
+
+
+
+
+					<div class="row justify-content-center pt-3">
+						<a class="btn btn-sm btn-secondary mr-2 col-md-2"
+							th:href="@{/question/list/__${page}__}" th:text="#{btnCancel}"></a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<th:block layout:fragment="script">
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"
+			type="text/javascript"></script>
+		<script type="text/javascript" th:src="@{/static/js/date-picker.js}"></script>
+	</th:block>
+</body>
+</html>

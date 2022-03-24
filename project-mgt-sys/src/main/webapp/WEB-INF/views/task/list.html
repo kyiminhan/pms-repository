@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="common/template">
+<head>
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" />
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css" />
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-md-12 pb-2">
+				<a class="btn btn-sm btn-secondary float-right"
+					th:href="@{/task/create}"><i class="fas fa-plus mr-1"></i>Create</a>
+			</div>
+			<div class="col-md-12">
+				<table id="dtBasicExample"
+					class="table table-sm table-bordered table-hover">
+					<thead>
+						<tr class="bg-secondary text-white">
+							<td scope="col" width="5%" th:text="#{no}"></td>
+							<td scope="col" width="15%" th:text="#{projectName}"></td>
+							<td scope="col" width="15%" th:text="#{taskName}"></td>
+							<td scope="col" width="15%" th:text="#{taskDescription}"></td>
+							<td scope="col" width="15%" th:text="#{taskRemark}"></td>
+							<td scope="col" width="15%" th:text="#{progress}"></td>
+							<td scope="col" width="15%" th:text="#{planDate}"></td>
+							<td scope="col" width="15%" th:text="#{actualDate}"></td>
+							<td class="text-center" scope="col" th:text="#{edit}"></td>
+							<td class="text-center" scope="col" th:text="#{delete}"></td>
+							<td scope="col" width="15%" th:text="#{subTask}"></td>
+					</thead>
+					<tbody>
+						<tr th:each="task,iterStat : ${tasks}">
+							<td class="small text-center" th:text="${iterStat.count}"></td>
+							<td class="small" th:text="${task.project.projectName}"></td>
+							<td class="small"><a
+								class="text-decoration-none text-primary"
+								th:href="@{/task/__${task.id}__/detail}"
+								th:text="${task.taskName}"></a>
+								<div th:each=" subTask : ${task.subTasks}">
+									<label class="small" th:text="${subTask.subTaskName}"></label>
+								</div></td>
+							<td class="small" th:text="${task.taskDescription}"></td>
+							<td class="small" th:text="${task.taskRemark}"></td>
+							<td class="small" th:text="${task.progress}"></td>
+							<td class="small"
+								th:text="${task.planStartDate!=null && task.planEndDate!= null}? ${task.planStartDate +'-'+ task.planEndDate} : ''"></td>
+							<td class="small"
+								th:text="${task.actualStartDate!=null && task.actualEndDate!= null}? ${task.actualStartDate +'-'+ task.actualEndDate} : ''"></td>
+							<td class="small text-center"><a
+								class="fas fa-edit text-primary"
+								th:href="@{/task/__${task.id}__/edit}"></a></td>
+							<td class="small text-center"><a
+								class="fas fa-trash-alt text-primary"
+								th:href="@{/task/__${task.uuid}__/delete}"></a></td>
+							<td class="small text-center">
+								<div class="btn-group">
+									<button
+										class="btn btn-secondary btn-sm dropdown-toggle pt-0 pb-0"
+										type="button" data-toggle="dropdown" aria-haspopup="true"
+										aria-expanded="false">
+										<i class="fas fa-align-justify"></i>
+									</button>
+									<div class="dropdown-menu dropdown-menu-right pt-0 pb-0"
+										aria-labelledby="dropdownMenuButton">
+										<a class="dropdown-item small" th:href="@{/subtask/create}"><span
+											th:text="#{create}"></span> </a> <a class="dropdown-item small"
+											th:href="@{/subtask/list}"><span th:text="#{list}"></span></a>
+									</div>
+								</div>
+
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<th:block layout:fragment="script">
+		<script
+			src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+		<script
+			src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+		<script
+			src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+		<script
+			src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
+		<script type="text/javascript"
+			th:src="@{/static/js/custom-datatable.js}"></script>
+	</th:block>
+</body>
+</html>

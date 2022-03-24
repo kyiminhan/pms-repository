@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="common/template">
+<head>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css"
+	rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="row justify-content-center">
+			<div class="col-md-6 ">
+				<form class="p-4" th:action="@{/task/create}" th:method="post"
+					th:object="${task}">
+					<h5 class="pb-2">CREATE</h5>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<i class="fas fa-tasks"></i> <label class="mb-0"
+									for="txtTaskName" th:text="#{taskName}"> </label><input
+									type="text" id="txtTaskName" th:field="*{taskName}"
+									class="form-control form-control-sm" autofocus="autofocus"
+									autocomplete="off"> <small
+									class="text-danger mt-0 float-right"
+									th:if="${#fields.hasErrors('taskName')}"
+									th:errors="*{taskName}"></small>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<i class="fab fa-codepen mr-1"></i><label class="mb-0"
+									for="cboProject" th:text="#{project}"> </label> <select
+									id="cboProject" class="form-control form-control-sm"
+									th:field="*{project.id}">
+									<option th:text="#{selectOne}" value="0"></option>
+									<option th:each="project : ${projects}"
+										th:value="${project.id}" th:text="${project.projectName}"></option>
+								</select> <small class="text-danger mt-0 float-right"
+									th:if="${#fields.hasErrors('project')}" th:errors="*{project}"></small>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<i class="far fa-list-alt mr-1"></i><label class="mb-0"
+									for="txtDescription" th:text="#{taskDescription}"></label>
+								<textarea th:field="*{taskDescription}" id="txtTaskDescription"
+									class="form-control form-control-sm" rows="3"
+									autocomplete="off"></textarea>
+								<small class="text-danger mt-0 float-right"
+									th:if="${#fields.hasErrors('taskDescription')}"
+									th:errors="*{taskDescription}"></small>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<i class="fas fa-book mr-1"></i><label class="mb-0"
+									for="txtRemark" th:text="#{taskRemark}"></label>
+								<textarea th:field="*{taskRemark}" id="txtTaskRemark"
+									class="form-control form-control-sm" rows="3"
+									autocomplete="off"></textarea>
+								<small class="text-danger mt-0 float-right"
+									th:if="${#fields.hasErrors('taskRemark')}"
+									th:errors="*{taskRemark}"></small>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<i class="fas fa-layer-group mr-1"></i><label class="mb-0"
+									for="cboProgress" th:text="#{progress}"> </label> <select
+									id="cboProgress" class="form-control form-control-sm"
+									th:field="*{progress}">
+									<option th:text="#{selectOne}" th:value="null"></option>
+									<option
+										th:each="progress : ${T(com.kyiminhan.mm.pms.common.type.Progress).values()}"
+										th:value="${progress}" th:text="${progress}"></option>
+								</select> <small class="text-danger mt-0 float-right"
+									th:if="${#fields.hasErrors('progress')}"
+									th:errors="*{progress}"></small>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<i class="far fa-calendar-alt"></i> <label class="mb-0"
+									for="txtPlanStartDate" th:text="#{planStartDate}"></label> <input
+									type="text" th:field="*{planStartDate}" id="txtPLanStartDate"
+									class="form-control form-control-sm datepicker"
+									data-provide="datepicker-inline" autocomplete="off"> <small
+									class="text-danger mt-0 float-right"
+									th:if="${#fields.hasErrors('planStartDate')}"
+									th:errors="*{planStartDate}"></small>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<i class="far fa-calendar-alt"></i> <label class="mb-0"
+									for="txtPlanEndDate" th:text="#{planEndDate}"></label> <input
+									type="text" th:field="*{planEndDate}" id="txtPlanEndDate"
+									class="form-control form-control-sm datepicker"
+									autocomplete="off"> <small
+									class="text-danger mt-0 float-right"
+									th:if="${#fields.hasErrors('planEndDate')}"
+									th:errors="*{planEndDate}"></small>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<i class="far fa-calendar-alt"></i> <label class="mb-0"
+									for="txtActualStartDate" th:text="#{actualStartDate}"></label> <input
+									type="text" th:field="*{actualStartDate}"
+									id="txtActualStartDate"
+									class="form-control form-control-sm datepicker"
+									autocomplete="off"> <small
+									class="text-danger mt-0 float-right"
+									th:if="${#fields.hasErrors('actualStartDate')}"
+									th:errors="*{actualStartDate}"></small>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<i class="far fa-calendar-alt"></i> <label class="mb-0"
+									for="txtActualEndDate" th:text="#{actualEndDate}"></label> <input
+									type="text" th:field="*{actualEndDate}" id="txtActualEndDate"
+									class="form-control form-control-sm datepicker"
+									autocomplete="off"> <small
+									class="text-danger mt-0 float-right"
+									th:if="${#fields.hasErrors('actualEndDate')}"
+									th:errors="*{actualEndDate}"></small>
+							</div>
+						</div>
+					</div>
+
+					<div class="row justify-content-center pt-3">
+						<a class="btn btn-sm btn-secondary mr-2 col-md-2"
+							th:href="@{/task/list}" th:text="#{btnCancel}"></a>
+						<button type="submit"
+							class="btn btn-sm btn-secondary mr-2 col-md-2"
+							th:text="#{btnSave}"></button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<th:block layout:fragment="script">
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"
+			type="text/javascript"></script>
+		<script type="text/javascript" th:src="@{/static/js/date-picker.js}"></script>
+	</th:block>
+</body>
+</html>

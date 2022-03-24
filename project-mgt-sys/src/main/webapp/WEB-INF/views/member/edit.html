@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="common/template">
+<body>
+	<div layout:fragment="content">
+		<div class="row justify-content-center">
+			<div class="col-md-6 ">
+				<form class="p-4" th:action="@{/member/__${member.id}__/edit}"
+					th:method="post" th:object="${member}">
+					<h5 class="pb-2">EDIT</h5>
+					<input type="hidden" th:field="*{id}"> <input type="hidden"
+						th:field="*{uuid}"> <input type="hidden"
+						th:field="*{version}">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<i class="fas fa-user"></i> <label class="mb-0"
+									for="txtFitstName" th:text="#{firstName}"> </label><input
+									type="text" id="txtFitstName" th:field="*{firstName}"
+									class="form-control form-control-sm" autofocus="autofocus"
+									autocomplete="off"> <small
+									class="text-danger mt-0 float-right"
+									th:if="${#fields.hasErrors('firstName')}"
+									th:errors="*{firstName}"></small>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<i class="fas fa-user"></i> <label class="mb-0"
+									for="txtLastName" th:text="#{lastName}"> </label><input
+									type="text" id="txtLastName" th:field="*{lastName}"
+									class="form-control form-control-sm" autocomplete="off">
+								<small class="text-danger mt-0 float-right"
+									th:if="${#fields.hasErrors('lastName')}"
+									th:errors="*{lastName}"></small>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<i class="fas fa-id-badge"></i> <label class="mb-0"
+									for="txtEmployeeIdName" th:text="#{employeeId}"> </label><input
+									type="text" id="txtEmployeeIdName" th:field="*{employeeId}"
+									class="form-control form-control-sm" autocomplete="off">
+								<small class="text-danger mt-0 float-right"
+									th:if="${#fields.hasErrors('employeeId')}"
+									th:errors="*{employeeId}"></small>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<i class="fas fa-envelope"></i> <label class="mb-0"
+									for="txtEmail" th:text="#{email}"> </label><input type="text"
+									id="txtEmail" th:field="*{email}"
+									class="form-control form-control-sm" autocomplete="off">
+								<small class="text-danger mt-0 float-right"
+									th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<i class="fas fa-mobile-alt"></i> <label class="mb-0"
+									for="txtPhone" th:text="#{phone}"> </label><input type="text"
+									id="txtPhone" th:field="*{phone}"
+									class="form-control form-control-sm" autocomplete="off">
+								<small class="text-danger mt-0 float-right"
+									th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></small>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<i class="fas fa-map-marker-alt mr-1"></i><label class="mb-0"
+									for="txtAddress" th:text="#{address}"></label>
+								<textarea th:field="*{address}" id="txtAddress"
+									class="form-control form-control-sm" rows="3"
+									autocomplete="off"></textarea>
+								<small class="text-danger mt-0 float-right"
+									th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></small>
+							</div>
+						</div>
+					</div>
+					<div class="row justify-content-center pt-3">
+						<a class="btn btn-sm btn-secondary mr-2 col-md-2"
+							th:href="@{/member/list}" th:text="#{btnCancel}"></a>
+						<button type="submit"
+							class="btn btn-sm btn-secondary mr-2 col-md-2"
+							th:text="#{btnEdit}"></button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

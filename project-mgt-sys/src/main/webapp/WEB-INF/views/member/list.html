@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="common/template">
+<head>
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" />
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css" />
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-md-12 pb-2">
+				<a class="btn btn-sm btn-secondary float-right"
+					th:href="@{/member/create}"><i class="fas fa-plus mr-1"></i>Create</a>
+			</div>
+			<div class="col-md-12">
+				<table id="dtBasicExample"
+					class="table table-sm table-bordered table-hover">
+					<thead>
+						<tr class="bg-secondary text-white">
+							<td scope="col" width="5%" th:text="#{no}"></td>
+							<td scope="col" width="20%" th:text="#{name}"></td>
+							<td scope="col" width="20%" th:text="#{email}"></td>
+							<td scope="col" width="30%" th:text="#{address}"></td>
+							<td scope="col" width="15%" th:text="#{phone}"></td>
+							<td class="text-center" scope="col" th:text="#{edit}"></td>
+							<td class="text-center" scope="col" th:text="#{delete}"></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="member,iterStat : ${members}">
+							<td class="small text-center" th:text="${iterStat.count}"></td>
+							<td class="small"><a
+								class="text-decoration-none text-primary"
+								th:href="@{/member/__${member.id}__/detail}"
+								th:text="${member.firstName +' '+ member.lastName}"></a></td>
+							<td class="small" th:text="${member.email}"></td>
+							<td class="small" th:text="${member.address}"></td>
+							<td class="small" th:text="${member.phone}"></td>
+							<td class="small text-center"><a
+								class="fas fa-edit text-primary"
+								th:href="@{/member/__${member.id}__/edit}"></a></td>
+							<td class="small text-center"><a
+								class="fas fa-trash-alt text-primary"
+								th:href="@{/member/__${member.uuid}__/delete}"></a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<th:block layout:fragment="script">
+		<script
+			src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+		<script
+			src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+		<script
+			src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+		<script
+			src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
+		<script type="text/javascript"
+			th:src="@{/static/js/custom-datatable.js}"></script>
+	</th:block>
+</body>
+</html>

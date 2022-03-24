@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/common/template}">
+<head>
+<title>Home</title>
+</head>
+<body>
+	<div class="row justify-content-center" layout:fragment="content">
+
+		<a th:href="@{/login}" style="padding-top: 10%">Login</a>
+
+	</div>
+</body>
+</html>

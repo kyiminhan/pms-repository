@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="common/template">
+<head>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-md-12 pb-2">
+				<a class="btn btn-sm btn-secondary float-right"
+					th:href="@{/question/create}"><i class="fas fa-plus mr-1"></i>Ask Question</a>
+			</div>
+			<div class="col-md-12">
+				<div class="card mb-3"
+					th:each="question,iterStat : ${questions.pagingList}">
+					<div class="card-header bg-default">
+
+						<a class="text-decoration-none text-primary small"
+							th:href="@{/question/__${question.id}__/detail}"
+							th:text="'ID:[' + ${question.id} + '] '"></a> <span
+							th:text="${question.title}"></span><a
+							class="fas fa-trash-alt text-primary float-right"
+							th:href="@{/question/__${question.uuid}__/delete/__${page}__}"></a>
+						<a class="fas fa-edit text-primary float-right pr-2"
+							th:href="@{/question/__${question.id}__/edit}"></a>
+					</div>
+					<div class="card-body">
+						<span class="small font-italic font-weight-bold ">Question:</span>
+						<p class="small" th:text="${question.description}"></p>
+						<footer class="blockquote-footer"
+							th:if="${question.answers !=null and !question.answers.isEmpty()}">
+							<cite title="Source Title " class="font-weight-bold"><span
+								th:text="${question.answers.size()}+' '"></span>Answers</cite>
+						</footer>
+						<div class="col-md-12 small"
+							th:each="answer, iterStat : ${question.answers}">
+							<p class="mb-0">
+								<label class="pl-3 pr-2"
+									th:text="${iterStat.count +'.) '+ answer.answer}"></label> <a
+									class="text-decoration-none pr-1"
+									th:href="@{/question/__${question.id}__/__${page}__/answer/__${answer.id}__/edit}"
+									th:text="#{edit}"></a> <a class="text-decoration-none"
+									th:href="@{/question/__${question.id}__/__${page}__/answer/__${answer.uuid}__/delete}"
+									th:text="#{delete}"></a>
+							</p>
+						</div>
+						<footer class="blockquote-footer">
+							<a class="text-decoration-none"
+								th:href="@{/question/__${question.id}__/__${page}__/answer/create}"><cite
+								title="Source Title">Your Answer</cite></a>
+						</footer>
+					</div>
+				</div>
+
+				<!-- Spring Hibernate Pagination -->
+				<div class="row justify-content-center">
+					<div
+						th:if="${questions.pagingList !=null and !questions.pagingList.isEmpty()}">
+						<ul class="pagination pagination-sm pg-blue">
+							<li class="page-item "
+								th:classappend="${questions.previousPage eq 0}? disabled:''"><a
+								class="page-link" tabindex="-1"
+								th:href="@{/question/list/__${questions.previousPage}__}"
+								th:text="#{previous}"></a></li>
+							<li class="page-item " th:each="page : ${questions.totalPages}"
+								th:classappend="${questions.currentPage eq page} ? active : (${page eq 0}? disabled : '')"><a
+								class="page-link" th:href="@{/question/list/__${page}__}"
+								th:text="${page eq 0}? '...' : ${page}"></a></li>
+							<li class="page-item"
+								th:classappend="${questions.nextPage eq 0}? disabled:''"><a
+								class="page-link"
+								th:href="@{/question/list/__${questions.nextPage}__}"
+								th:text="#{next}"></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

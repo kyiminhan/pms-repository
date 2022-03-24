@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/common/template}">
+<head>
+</head>
+<body>
+	<nav class="navbar navbar-expand fixed-top navbar-dark bg-secondary"
+		th:fragment="navbar">
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarTogglerDemo01"
+			aria-controls="navbarTogglerDemo01" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+			<a class="navbar-brand font-weight-bold text-uppercase"
+				th:href="@{/home}"><span th:text="#{mn.sysname}"></span></a>
+			<ul class="navbar-nav mr-auto mt-2 mt-lg-0" sec:authorize="isAuthenticated()">
+				<li class="nav-item"><a class="nav-link text-uppercase"
+					th:href="@{/home}"><i class="fas fa-home mr-1"></i><span
+						th:text="#{mn.home}"></span></a></li>
+				<li class="nav-item text-uppercase"><a class="nav-link"
+					th:href="@{/project/list}"><i class="fab fa-codepen mr-1"></i><span
+						th:text="#{mn.project}"></span></a></li>
+				<li class="nav-item text-uppercase"><a class="nav-link"
+					th:href="@{/task/list}"><i class="fas fa-tasks mr-1"></i><span
+						th:text="#{mn.task}"></span></a></li>
+				<li class="nav-item text-uppercase"><a class="nav-link"
+					th:href="@{/assign/list}"><i class="fas fa-check-double mr-1"></i><span
+						th:text="#{mn.assign}"></span></a></li>
+				<li class="nav-item text-uppercase"><a class="nav-link"
+					th:href="@{/member/list}"><i class="fas fa-users mr-1"></i><span
+						th:text="#{mn.member}"></span></a></li>
+				<li class="nav-item text-uppercase"><a class="nav-link"
+					th:href="@{/question/list}"><i class="fas fa-book-reader mr-1"></i><span
+						th:text="#{mn.question}"></span></a></li>
+				<li class="nav-item text-uppercase"><a class="nav-link"
+					th:href="@{/issue/list}"><i class="fas fa-award mr-1"></i><span
+						th:text="#{mn.issue}"></span></a></li>
+			</ul>
+			<ul class="navbar-nav ml-auto nav-flex-icons" sec:authorize="isAuthenticated()">
+				<li class="nav-item"><a class="nav-link"> <i
+						class="fas fa-sms mr-1"></i>
+				</a></li>
+				<li class="nav-item"><a class="nav-link"> <i
+						class="fas fa-bell mr-1"></i>
+				</a></li>
+				<li class="nav-item dropdown  text-uppercase"><a
+					class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="fas fa-user-circle mr-1"></i>Kyi Min Han
+				</a>
+					<div
+						class="dropdown-menu dropdown-menu-sm dropdown-menu-right dropdown-default text-uppercase mt-2 rounded-0"
+						aria-labelledby="navbarDropdownMenuLink-333">
+						<a class="dropdown-item" href="#"><i
+							class="fas fa-user-tag mr-1"></i>Profile</a> <a class="dropdown-item"
+							href="#"><i class="fas fa-tools mr-1"></i>Account Setting</a> <a
+							class="dropdown-item" th:href="@{/logout}"><i
+							class="fas fa-sign-out-alt mr-1"></i>Logout</a>
+					</div></li>
+			</ul>
+		</div>
+	</nav>
+</body>
+</html>

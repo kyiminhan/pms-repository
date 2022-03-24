@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="common/template">
+<head>
+<title>Home</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<table
+			class="table table-sm table-hover table-bordered table-responsive border-0">
+			<thead>
+				<tr class="text-center text-sm" th:each="month : ${months}">
+					<td rowspan="2"></td>
+					<td th:colspan="${#lists.size(month.days)}"><span
+						th:text="${month.monthName}"></span></td>
+				</tr>
+				<tr class="text-center" th:each="month : ${months}">
+					<td th:each="day : ${month.days}"
+						th:text="${#temporals.format(day.date, 'dd')}"></td>
+				</tr>
+			</thead>
+			<tbody>
+				<div th:each="task : ${tasks}" th:remove="tag">
+					<tr class="">
+						<td th:text="${task.taskName}"></td>
+						<td class="bg-info" th:each="taskPlan : ${task.taskPlans}"
+							th:text="${taskPlan.planEnable}"></td>
+					</tr>
+					<div th:each="subTask : ${task.subTasks}" th:remove="tag">
+						<tr>
+							<td th:text="${subTask.subTaskName}"></td>
+							<td class="bg-primary"
+								th:each="subTaskPlan : ${subTask.subTaskPlans}"
+								th:text="${subTaskPlan.planEnable}"></td>
+						</tr>
+					</div>
+				</div>
+			</tbody>
+		</table>
+	</div>
+
+</body>
+</html>

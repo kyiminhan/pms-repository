@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="common/template">
+<head>
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" />
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css" />
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-md-12 pb-2">
+				<a class="btn btn-sm btn-secondary float-right"
+					th:href="@{/subtask/create}"><i class="fas fa-plus mr-1"></i>Create</a>
+			</div>
+			<div class="col-md-12">
+				<table id="dtBasicExample"
+					class="table table-sm table-bordered table-hover">
+					<thead>
+						<tr class="bg-secondary text-white">
+							<td scope="col" width="5%" th:text="#{no}"></td>
+							<td scope="col" width="15%" th:text="#{projectName}"></td>
+							<td scope="col" width="15%" th:text="#{taskName}"></td>
+							<td scope="col" width="15%" th:text="#{subTaskName}"></td>
+							<td scope="col" width="15%" th:text="#{progress}"></td>
+							<td scope="col" width="15%" th:text="#{planDate}"></td>
+							<td scope="col" width="15%" th:text="#{actualDate}"></td>
+							<td class="text-center" scope="col" th:text="#{edit}"></td>
+							<td class="text-center" scope="col" th:text="#{delete}"></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="subTask,iterStat : ${subTasks}">
+							<td class="small text-center" th:text="${iterStat.count}"></td>
+							<td class="small" th:text="${subTask.task.project.projectName}"></td>
+							<td class="small" th:text="${subTask.task.taskName}"></td>
+							<td class="small"><a
+								class="text-decoration-none text-primary"
+								th:href="@{/subtask/__${subTask.id}__/detail}"
+								th:text="${subTask.subTaskName}"></a></td>
+							<td class="small" th:text="${subTask.progress}"></td>
+							<td class="small"
+								th:text="${subTask.planStartDate!=null && subTask.planEndDate!= null}? ${subTask.planStartDate +'-'+ subTask.planEndDate} : ''"></td>
+							<td class="small"
+								th:text="${subTask.actualStartDate!=null && subTask.actualEndDate!= null}? ${subTask.actualStartDate +'-'+ subTask.actualEndDate} : ''"></td>
+							<td class="small text-center"><a
+								class="fas fa-edit text-primary"
+								th:href="@{/subtask/__${subTask.id}__/edit}"></a></td>
+							<td class="small text-center"><a
+								class="fas fa-trash-alt text-primary"
+								th:href="@{/subtask/__${subTask.uuid}__/delete}"></a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<th:block layout:fragment="script">
+		<script
+			src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+		<script
+			src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+		<script
+			src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+		<script
+			src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
+		<script type="text/javascript"
+			th:src="@{/static/js/custom-datatable.js}"></script>
+	</th:block>
+</body>
+</html>
